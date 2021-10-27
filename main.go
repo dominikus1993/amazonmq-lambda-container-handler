@@ -1,7 +1,7 @@
 package main
 
 import (
-	"context"
+	"encoding/json"
 	"log"
 
 	"github.com/aws/aws-lambda-go/events"
@@ -10,8 +10,9 @@ import (
 
 type Event = events.ActiveMQEvent
 
-func handler(ctx context.Context, event Event) error {
-	log.Println("Received event ", event)
+func handler(event Event) error {
+	eventJson, _ := json.MarshalIndent(event, "", "  ")
+	log.Printf("Received event: %s", eventJson)
 	return nil
 }
 
